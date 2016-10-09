@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@TITLE</title>
+        <meta charset="UTF8">
+        <style>
+            body, #game-container {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            
+            #game-container {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        
+            @THEME
+        </style>
+    </head>
+    <body>
+        <div id="game-container"></div>
+        <script>
+            @ENGINE
+            
+            Terminator.config({
+                root: "#game-container"
+            });
+            
+            Terminator.load(@GAME);
+        </script>
+    </body>
+</html>

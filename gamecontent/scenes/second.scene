@@ -1,0 +1,8 @@
+scenes:
+    three: third.scene
+    
+commands:
+    "go to three": (scene three)
+    
+sections:
+    main: Hey, this is scene two! Type "go to three" to move to scene three.

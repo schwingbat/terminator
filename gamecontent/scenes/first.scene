@@ -1,0 +1,33 @@
+# Scenes holds any links to other scenes for use within the document.
+scenes:
+    one: first.scene
+    two: second.scene
+    three: third.scene
+
+# A list of commands the user may enter at a prompt.
+commands:
+    "go to two": (scene two)
+    "look": (section look_around)
+    "fuck off": (section fuck_off)
+    
+# Specify alternate inputs to activate each command.
+aliases:
+    look:
+        - look around
+        - examine
+
+# Sections of text that can be triggered by commands, such as for branching dialogue.
+# main will always be displayed immediately once the scene is loaded.
+sections:
+    main:
+        Hello there. This is the very first scene in the demo game.
+        Hopefully you will be able to go to the next one by typing "go to two".
+    look_around:
+        You are sitting in a dimly lit room in front of an old, rich mahogany desk.
+        The faint smell of cigars lingers in the air. You hear the chirping of crickets out the window.
+        It is dark out.
+    fuck_off:
+        No, u.
+        (wait 2000)
+        (section main)
+        

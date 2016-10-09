@@ -1,0 +1,8 @@
+scenes:
+    one: first.scene
+    
+commands:
+    "back to one": (scene one)
+    
+sections:
+    main: This is scene three! Type "back to one" to go back to the first scene.
