@@ -11,8 +11,6 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-const args = process.argv.slice(2);
-
 function writeToHTML(html, title, theme, engine, game) {
     return html
         .replace('@TITLE', title)

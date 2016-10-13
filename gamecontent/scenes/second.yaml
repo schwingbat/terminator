@@ -1,5 +1,5 @@
 scenes:
-    three: third.scene
+    three: third
     
 commands:
     "go to three": (scene three)

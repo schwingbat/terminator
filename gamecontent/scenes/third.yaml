@@ -1,5 +1,5 @@
 scenes:
-    one: first.scene
+    one: first
     
 commands:
     "back to one": (scene one)

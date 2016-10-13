@@ -2,7 +2,7 @@ title: TestGame
 game_version: 0.0.1
 engine_version: <1.0.0
 scene_path: scenes
-first_scene: first.scene
+first_scene: first
 developer:
     name: Tony McCoy
     url: http://tonymccoy.me

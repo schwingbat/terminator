@@ -1,8 +1,8 @@
 # Scenes holds any links to other scenes for use within the document.
 scenes:
-    one: first.scene
-    two: second.scene
-    three: third.scene
+    one: first
+    two: second
+    three: third
 
 # A list of commands the user may enter at a prompt.
 commands:
