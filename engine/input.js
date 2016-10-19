@@ -55,6 +55,12 @@ module.exports = (function() {
         
         callbacks.push(callback);
     };
+
+    pub.clear = function() {
+        if (inputEl) {
+            inputEl.value = '';
+        }
+    }
     
     return pub;
 })();

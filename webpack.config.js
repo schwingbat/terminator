@@ -4,7 +4,7 @@ module.exports = {
     context: path.join(__dirname, "engine"),
     entry: "./core.js",
     output: {
-        path: __dirname,
+        path: path.join(__dirname, "build"),
         filename: "terminator.engine.js"
     },
     module: {
@@ -21,5 +21,6 @@ module.exports = {
           }
         }
       ]
-    }
+    },
+    devtool: 'inline-source-map'
 }

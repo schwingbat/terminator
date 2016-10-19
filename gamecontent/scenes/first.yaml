@@ -12,9 +12,8 @@ commands:
     
 # Specify alternate inputs to activate each command.
 aliases:
-    look:
-        - look around
-        - examine
+    "look around": "look"
+    "examine": "look"
 
 # Sections of text that can be triggered by commands, such as for branching dialogue.
 # main will always be displayed immediately once the scene is loaded.
@@ -28,6 +27,5 @@ sections:
         It is dark out.
     fuck_off:
         No, u.
-        (wait 2000)
-        (section main)
+        (wait 2000 (section main))
         

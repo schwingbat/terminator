@@ -1,50 +1,34 @@
-/*@keyframes glowflicker {*/
-/*    0% {*/
-        
-/*    }*/
-/*    10% {*/
-        
-/*    }*/
-/*    17% {*/
-        
-/*    }*/
-/*}*/
-
-body {
-    font-size: 16px;
-}
-
 .tm-container {
-    /*border: 3px solid green;*/
-    
+    display: block;
+    position: relative;
+
     background: #111;
+    
     color: lightgreen;
     text-shadow: 0 0 8px rgba(60, 255, 60, 0.5);
     font-size: 16px;
-    
-    font-family: 'Menlo', 'Monaco', 'Bitstream Sans Vera', monospace;
-    
+
+    width: 100%;
+    height: 100%;
+
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     
-    padding: 1em;
+    font-family: 'Monaco', 'Menlo', 'Bitstream Sans Vera', monospace;
 }
 
-.tm-gametext {
-    /*border: 1px solid red;*/
-    
-    margin: 2em auto 0 auto;
+.tm-gametext {    
+    margin: 2em 0 0 0;
+    width: 100%;
     max-width: 600px;
 }
 
 .tm-userinput-container {
     margin-top: 2em;
     position: relative;
-    max-width: 600px;
     width: 100%;
-    
-    /*border: 1px solid orange;*/
+    max-width: 600px;
     
     display: flex;
 }

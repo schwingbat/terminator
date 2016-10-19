@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
 const webpack = require('webpack-stream');
 const exec = require('child_process').exec;
 
@@ -13,26 +12,32 @@ gulp.task('build:engine', () => {
     // Transpile and bundle engine code.
     return gulp.src('engine/core.js')
         .pipe(webpack( require('./webpack.config.js') ))
-        .pipe(gulp.dest(__dirname));
+        .pipe(gulp.dest('./staging'));
 })
 
 // Bundle built files into single HTML file.
 gulp.task('build:game', () => {
-    return exec('./gamebuilder/gamebuilder.js');
+    console.log('Building game...')
+    return exec('node ./gamebuilder/gamebuilder.js gamecontent/ staging/ build/', function(err, stdout, stderr) {
+        if (err || stderr) {
+            console.error({ err, stderr });
+            return;
+        }
+        console.log(stdout);
+    })
 })
 
-gulp.task('bundle', () => {
+gulp.task('build', ['build:engine', 'build:game'])
 
-})
+// gulp.task('game:watch', ['build:engine', 'build:game'], () => {
+//     return gulp.watch('gamecontent/**/*.js', ['build:engine', 'build:game'])
+// })
 
-gulp.task('bundle:watch', ['bundle'], () => {
-    return gulp.watch('engine/**/*.js', ['bundle'])
-})
+// gulp.task('engine:watch', ['build:engine'], () => {
+//     return gulp.watch('engine/**/*', ['build:engine'])
+// })
 
-gulp.task('engine:watch', ['build:engine'], () => {
-    return gulp.watch('engine/**/*', ['build:engine'])
-})
-
-gulp.task('watch', () => {
-    gulp.watch('engine/**/*.js', ['build:engine'])
+gulp.task('watch', ['build'], () => {
+    console.log('Watching for changes...')
+    return gulp.watch(['engine/**/*', 'gamecontent/**/*', 'gamebuilder/**/*'], ['build'])
 })

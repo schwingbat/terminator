@@ -11,6 +11,8 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
+const args = process.argv.slice(2);
+
 function writeToHTML(html, title, theme, engine, game) {
     return html
         .replace('@TITLE', title)
@@ -21,21 +23,29 @@ function writeToHTML(html, title, theme, engine, game) {
 
 if (args[0]) {
     const gamePath = path.resolve(args[0]);
-    
+	// Specify engine files to bundle the game with.
+	const engineDir = args[1] ? path.resolve(args[1]) : __dirname;
+	// Write to specified output folder, or the __dirname if none specified.
+	const outputDir = args[2] ? path.resolve(args[2]) : __dirname;
+
     // First read game.yml
     const manifest = yaml.safeLoad(fs.readFileSync(path.join(gamePath, 'game.yml'), 'utf8'));
     if (!manifest) throw Error('game.yml not found in '+gamePath+'! Please make sure the file exists.');
-    
+
     const scenePath = path.join(gamePath, manifest.scene_path);
     const scenes = fs.readdirSync(scenePath);
-    
+
     const sceneObj = {};
-    
+
     for (let i = 0; i < scenes.length; i++) {
         const p = path.join(scenePath, scenes[i]);
-        sceneObj[scenes[i]] = yaml.safeLoad(fs.readFileSync(p, 'utf8'));
+
+        // Strip file extension.
+        const scene = path.basename(scenes[i], path.extname(scenes[i]));
+
+        sceneObj[scene] = yaml.safeLoad(fs.readFileSync(p, 'utf8'));
     }
-    
+
     const bundle = {
         game: {
             title: manifest.title,
@@ -46,20 +56,20 @@ if (args[0]) {
         },
         scenes: sceneObj
     }
-    
+
     const template = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8');
     const theme = fs.readFileSync(path.join(__dirname, 'themes', 'phosphor.css'), 'utf8');
-    const engine = fs.readFileSync('terminator.engine.js', 'utf8');
-    
+    const engine = fs.readFileSync(path.join(engineDir, 'terminator.engine.js'), 'utf8');
+
     const newHTML = writeToHTML(template, bundle.game.title, theme, engine, JSON.stringify(bundle));
-    
-    const bundleName = bundle.game.shortname + '.bundle.html';
-    fs.writeFileSync(bundleName, newHTML);
-    
-    console.log('Saved to '+bundleName);
-    
+
+	const bundlePath = path.join(outputDir, bundle.game.shortname + '.bundle.html');
+    fs.writeFileSync(bundlePath, newHTML);
+
+    console.log('Saved to '+bundlePath);
+
     // First read game.yml
-    
+
 } else {
     throw Error('No path given');
 }
