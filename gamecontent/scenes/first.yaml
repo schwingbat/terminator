@@ -27,5 +27,6 @@ sections:
         It is dark out.
     fuck_off:
         No, u.
-        (wait 2000 (section main))
+        (wait 2000) # Wait for two seconds (2000 milliseconds)
+        (section main) # Go to section main after time is up. Expressions in sections are executed automatically
         
