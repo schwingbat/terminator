@@ -9,7 +9,7 @@ commands:
     "go to two": (scene two)
     "look": (section look_around)
     "fuck off": (section fuck_off)
-    
+
 # Specify alternate inputs to activate each command.
 aliases:
     "look around": "look"
@@ -26,7 +26,4 @@ sections:
         The faint smell of cigars lingers in the air. You hear the chirping of crickets out the window.
         It is dark out.
     fuck_off:
-        No, u.
-        (wait 2000) # Wait for two seconds (2000 milliseconds)
-        (section main) # Go to section main after time is up. Expressions in sections are executed automatically
-        
+        No, u. (wait 2000 (section main)) # Wait for two seconds then go to next section

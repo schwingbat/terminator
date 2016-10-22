@@ -16,5 +16,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tony McCoy <toonytony@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "yargs": "^6.3.0"
+  }
 }

@@ -5,7 +5,7 @@ module.exports = {
     entry: "./core.js",
     output: {
         path: path.join(__dirname, "build"),
-        filename: "terminator.engine.js"
+        filename: "terminator.js"
     },
     module: {
       loaders: [

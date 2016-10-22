@@ -18,19 +18,22 @@ module.exports = (function() {
     // For controls
     let commands = {};
     let aliases = [];
-    
-    Input.onInput(function(val) {
-        console.log(`Listener on Scene received "${val}"`);
 
-        // Check if there is an action for the entered value and run it if there is. 
-        if (commands[val]) {
-            console.log('There is an action for '+val);
-            commands[val]();
-            Input.clear();
+    Input.onInput(function(val) {
+        console.log(`Listener on Scene received "${val}"`)
+		const vlo = val.toLowerCase()
+
+        // Check if there is an action for the entered value and run it if there is.
+        if (commands[vlo]) {
+            console.log('There is an action for '+val)
+            commands[vlo]()
+            Input.clear()
         } else {
             // Show some kind of message to the player here.
-            Input.clear();
-            console.log('No action found');
+            Input.clear()
+
+			textEl.textContent = `Unknown command ${val}`
+			setTimeout(() => textEl.textContent = activeScene.data.sections[activeScene.section], 2200)
         }
     });
 
@@ -44,7 +47,7 @@ module.exports = (function() {
 
         for (let key in c) {
             const str = c[key].trim();
-            
+
             if (str[0] === '(' && str[str.length - 1] === ')') {
                 // Is surrounded by parens, so is valid function syntax
 
@@ -84,63 +87,63 @@ module.exports = (function() {
 
     function _printSection(name) {
         activeScene.section = name;
-        
+
         if (textEl) {
             textEl.textContent = activeScene.data.sections[name];
         }
-        
+
         console.log('printing', activeScene.data.sections[name]);
     }
-    
+
     function _runCallbacks(list, params) {
         for (var i = 0; i < list.length; i++) {
             list[i].apply(null, params);
         }
     }
-    
+
     const listeners = [];
-    
+
     const s = {};
-    
+
     s.init = function(el, gameData, conf) {
         textEl = el;
         sceneTree = gameData.scenes;
         config = conf;
-        
+
         s.changeScene(gameData.game.first_scene);
     }
-    
+
     s.changeScene = function(name, section = 'main') {
         if (sceneTree[name]) {
             activeScene.name = name;
             activeScene.data = sceneTree[name];
 
             _parseCommands();
-            
+
             //console.log(section, name);
             if (activeScene.data.sections[section]) {
                 _printSection(section);
             }
-            
+
             _runCallbacks(listeners, [name, section]);
         } else {
             throw Error(`Scene "${name}" does not exist!`);
         }
     }
-    
+
     s.changeSection = function(name) {
         return s.changeScene(activeScene.name, name);
     }
-    
+
     s.onChange = function(callback) {
         for (var i = 0; i < sceneListeners.length; i++) {
             if (sceneListeners[i] === callback) {
                 return false;
             }
         }
-        
+
         sceneListeners.push(callback);
     }
-    
+
     return s;
 })();

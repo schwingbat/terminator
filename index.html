@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Terminator Test</title>
+		<link rel="stylesheet" href="themes/phosphor.css">
+
+		<!-- I think only Chrome supports imports right now -->
+		<link rel="import" href="build/game.json" type="text/json">
+
+		<style>
+			body, #game-container {
+				box-sizing: border-box;
+				padding: 0;
+				margin: 0;
+			}
+
+			#game-container {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			.hidden {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="game-container"></div>
+
+		<script src="build/terminator.js"></script>
+		<script id="the-game" type="text/json" src="build/game.json"></script>
+		<script>
+			var game = document.querySelector('link[rel=import]').import
+			var content = game.body.textContent
+
+			if (game && content) {
+				content = JSON.parse(content)
+			}
+
+			Terminator.config({ root: "#game-container" })
+			Terminator.load(content)
+		</script>
+	</body>
+</html>

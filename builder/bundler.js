@@ -68,7 +68,7 @@ if (args[0]) {
     const engine = fs.readFileSync(path.join(engineDir, 'terminator.engine.js'), 'utf8');
 
 	// Concat the theme CSS, engine JS and compiled game bundle into a single HTML file.
-    const newHTML = writeToHTML(template, bundle.game.title, theme, engine, JSON.stringify(bundle));
+    const newHTML = writeToHTML(template, bundle.game.title, engine, JSON.stringify(bundle));
 
 	// And write... now just drop it on a web server somewhere!
 	const bundlePath = path.join(outputDir, bundle.game.shortname + '.bundle.html');

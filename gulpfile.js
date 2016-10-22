@@ -8,17 +8,17 @@ gulp.task('clean', () => {
 })
 
 // Bundle all JS into one file.
-gulp.task('build:engine', () => {
+gulp.task('build', () => {
     // Transpile and bundle engine code.
     return gulp.src('engine/core.js')
         .pipe(webpack( require('./webpack.config.js') ))
-        .pipe(gulp.dest('./staging'));
+        .pipe(gulp.dest('./build'));
 })
 
 // Bundle built files into single HTML file.
 gulp.task('build:game', () => {
     console.log('Building game...')
-    return exec('node ./gamebuilder/gamebuilder.js gamecontent/ staging/ build/', function(err, stdout, stderr) {
+    return exec('node ./builder/gamec.js gamecontent/ build/', function(err, stdout, stderr) {
         if (err || stderr) {
             console.error({ err, stderr });
             return;
@@ -27,17 +27,11 @@ gulp.task('build:game', () => {
     })
 })
 
-gulp.task('build', ['build:engine', 'build:game'])
-
-// gulp.task('game:watch', ['build:engine', 'build:game'], () => {
-//     return gulp.watch('gamecontent/**/*.js', ['build:engine', 'build:game'])
-// })
-
-// gulp.task('engine:watch', ['build:engine'], () => {
-//     return gulp.watch('engine/**/*', ['build:engine'])
-// })
+gulp.task('watch:game', ['build:game'], () => {
+	return gulp.watch('gamecontent/**/*', ['build:game'])
+})
 
 gulp.task('watch', ['build'], () => {
     console.log('Watching for changes...')
-    return gulp.watch(['engine/**/*', 'gamecontent/**/*', 'gamebuilder/**/*'], ['build'])
+    return gulp.watch('engine/**/*', ['build'])
 })
