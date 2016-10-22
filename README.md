@@ -1,6 +1,8 @@
 # Terminator (ALPHA)
 Terminator is a developer-oriented text adventure framework. It takes a folder full of YAML files and turns it into a web-based text adventure game that can be hosted on any server and played anywhere!
 
+![Terminator Screenshot](screenshot.jpg?raw=true)
+
 ## Features
 ### Current
 - Build larger scenes with many smaller sections. Specify your own custom commands to move between sections and scenes
