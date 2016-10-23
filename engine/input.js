@@ -26,12 +26,6 @@ module.exports = (function() {
 		return false
 	}
 
-	function animateCursor() {
-		console.warn('Cursor will animate!')
-
-		//requestAnimationFrame(animateCursor)
-	}
-
     const pub = {}
 
     pub.init = function(elem, masterConfig) {
@@ -39,12 +33,7 @@ module.exports = (function() {
 		cursorEl = document.querySelector('.tm-cursor') || null
         config = masterConfig
 
-		if (cursorEl) {
-			animateCursor()
-		}
-
         window.addEventListener('keydown', function(e) {
-			//console.log(e.which);
             if (inputEnabled) {
                 switch(e.key) {
                     case 'Enter':
@@ -60,7 +49,7 @@ module.exports = (function() {
 						break
                     default:
 						if (isValidChar(e.key)) {
-							inputEl.textContent += e.key.toUpperCase()
+							inputEl.textContent += e.key
 						}
                         break
                 }
