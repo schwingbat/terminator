@@ -23,8 +23,8 @@ if (args[0]) {
 	const outputDir = args[1] ? path.resolve(args[1]) : __dirname;
 
     // First read game.yml
-    const manifest = yaml.safeLoad(fs.readFileSync(path.join(gamePath, 'game.yml'), 'utf8'));
-    if (!manifest) throw Error('game.yml not found in '+gamePath+'! Please make sure the file exists.');
+    const manifest = yaml.safeLoad(fs.readFileSync(path.join(gamePath, 'game.yaml'), 'utf8'));
+    if (!manifest) throw Error('game.yaml not found in '+gamePath+'! Please make sure the file exists.');
 
 	// Get all files in the scenes directory.
     const scenePath = path.join(gamePath, manifest.scene_path);
