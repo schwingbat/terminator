@@ -17,23 +17,36 @@ module.exports = (function() {
 
     // For controls
     let commands = {};
-    let aliases = [];
 
     Input.onInput(function(val) {
         console.log(`Listener on Scene received "${val}"`)
-		const vlo = val.toLowerCase()
+		let command = val.toLowerCase()
+		let a = activeScene.data.aliases
+
+		// Use an alias if one exists
+		if (!commands[command]) {
+			if (a[command]) {
+				command = a[command]
+			}
+		}
 
         // Check if there is an action for the entered value and run it if there is.
-        if (commands[vlo]) {
-            console.log('There is an action for '+val)
-            commands[vlo]()
+        if (commands[command]) {
+            console.log('There is an action for '+command)
+            commands[command]()
             Input.clear()
         } else {
             // Show some kind of message to the player here.
             Input.clear()
+			const sec = activeScene.section
 
-			textEl.textContent = `Unknown command ${val}`
-			setTimeout(() => textEl.textContent = activeScene.data.sections[activeScene.section], 2200)
+			if (activeScene.data.sections.unknown_command) {
+				_printSection('unknown_command')
+			} else {
+				textEl.innerHTML = `Unknown command ${command}`
+			}
+
+			setTimeout(() => _printSection(sec), 2200)
         }
     });
 
@@ -41,7 +54,6 @@ module.exports = (function() {
         // Turn the command syntax into proper callable functions.
 
         commands = {};
-        aliases = [];
 
         const c = activeScene.data.commands;
 
@@ -89,7 +101,9 @@ module.exports = (function() {
         activeScene.section = name;
 
         if (textEl) {
-            textEl.textContent = activeScene.data.sections[name];
+			// Replace newlines with HTML line breaks
+			let sectionHTML = activeScene.data.sections[name].replace(/\n/g, '<br />')
+            textEl.innerHTML = sectionHTML;
         }
 
         console.log('printing', activeScene.data.sections[name]);
