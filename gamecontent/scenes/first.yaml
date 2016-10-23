@@ -9,21 +9,44 @@ commands:
     "go to two": (scene two)
     "look": (section look_around)
     "fuck off": (section fuck_off)
+    "new line": (section newline_test)
+    "pick up glass eye": (set blind false)(section got_eyes)
 
 # Specify alternate inputs to activate each command.
 aliases:
     "look around": "look"
     "examine": "look"
 
+state:
+    blind: true
+
 # Sections of text that can be triggered by commands, such as for branching dialogue.
 # main will always be displayed immediately once the scene is loaded.
 sections:
-    main:
-        Hello there. This is the very first scene in the demo game.
+    main: |
+        Hello there.
+        This is the very first scene in the demo game.
         Hopefully you will be able to go to the next one by typing "go to two".
+        ________
+        COMMANDS
+        * go to two
+        * look
+    got_eyes:
+        You put the glass eye in your eye socket. You can see.
     look_around:
+        (if blind)
+        You have no eyes.
+        (end)
+
         You are sitting in a dimly lit room in front of an old, rich mahogany desk.
         The faint smell of cigars lingers in the air. You hear the chirping of crickets out the window.
         It is dark out.
     fuck_off:
         No, u. (wait 2000 (section main)) # Wait for two seconds then go to next section
+    newline_test: |
+        This shit
+        should all be
+        on new lines
+        (setstate look_unlocked true)
+    unknown_command:
+        I don't know what that means...
